@@ -26,7 +26,7 @@ public class Personagem : MonoBehaviour
     {
         //Variavel de Velocidade
         float velocidadeX;
-        velocidadeX = Input.GetAxis("Horizontal");
+        velocidadeX = Input.GetAxis("Horizontal") * 3;
         Corpo.velocity = new Vector2(velocidadeX, 0);
         //Animacao
         if(Mathf.Abs(velocidadeX) > 0)
@@ -36,7 +36,7 @@ public class Personagem : MonoBehaviour
             {
                 transform.localScale = new Vector3(1, 1, 1);
             }
-            if (velocidadeX < 0)
+            else if (velocidadeX < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
