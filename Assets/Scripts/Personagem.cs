@@ -11,8 +11,9 @@ public class Personagem : MonoBehaviour
     // Tudo que roda uma vez só no inicio
     void Start()
     {
-        Corpo = GetComponent<Rigidbody2D>();
         Animacao = GetComponent<Animator>();
+        Corpo = GetComponent<Rigidbody2D>();
+        
     }
 
     // Roda toda e todo tempo (FRAME)
@@ -27,10 +28,18 @@ public class Personagem : MonoBehaviour
         float velocidadeX;
         velocidadeX = Input.GetAxis("Horizontal");
         Corpo.velocity = new Vector2(velocidadeX, 0);
-
-        if(velocidadeX > 0)
+        //Animacao
+        if(Mathf.Abs(velocidadeX) > 0)
         {
             Animacao.SetBool("Andar", true);
+            if (velocidadeX > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            if (velocidadeX < 0)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
         if(velocidadeX == 0)
         {
