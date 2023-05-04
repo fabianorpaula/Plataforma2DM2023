@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class Personagem : MonoBehaviour
 {
-    public Rigidbody2D Corpo;
-    public Animator Anim;
+    //Declarar Componentes
+    private Rigidbody2D Corpo;
+    private Animator Animacao;
+
+    // Tudo que roda uma vez só no inicio
     void Start()
     {
         Corpo = GetComponent<Rigidbody2D>();
-        Anim = GetComponent<Animator>();
+        Animacao = GetComponent<Animator>();
     }
+
+    // Roda toda e todo tempo (FRAME)
     void Update()
     {
+        Mover();
+    }
 
-        float velX = Input.GetAxis("Horizontal")*4;
-        Corpo.velocity = new Vector2(velX, 0);
+    void Mover()
+    {
+        //Variavel de Velocidade
+        float velocidadeX;
+        velocidadeX = Input.GetAxis("Horizontal");
+        Corpo.velocity = new Vector2(velocidadeX, 0);
 
-        if(velX == 0)
+        if(velocidadeX > 0)
         {
-            Anim.SetBool("Correndo", false);
+            Animacao.SetBool("Andar", true);
         }
-        else
+        if(velocidadeX == 0)
         {
-            Anim.SetBool("Correndo", true);
+            Animacao.SetBool("Andar", false);
         }
-
-        if(velX > 0.1f)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        if(velX < -0.1f)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-
-
     }
 }
