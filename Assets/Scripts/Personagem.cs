@@ -10,7 +10,8 @@ public class Personagem : MonoBehaviour
 
     //Variaveis
     public bool noChao = false;
-    public int qtdPulos = 1;
+    public int qtdPulos = 2;
+    public int estrelas = 0;
 
     // Tudo que roda uma vez só no inicio
     void Start()
@@ -57,19 +58,19 @@ public class Personagem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            /*
+            
              //pulo unico
             if(noChao == true)
             {
                 Corpo.AddForce(Vector2.up * 300);
                 noChao = false;
-            }*/
+            }/*
             //Pulo mutiplo
             if(qtdPulos > 0)
             {
                 Corpo.AddForce(Vector2.up * 300);
                 qtdPulos--;
-            }
+            }*/
             
             
         }
@@ -77,16 +78,25 @@ public class Personagem : MonoBehaviour
     //Colisão real, tem fisica
     private void OnCollisionEnter2D(Collision2D colisao)
     {
-        
+        if(colisao.gameObject.tag == "Estrela")
+        {
+            estrelas++;
+            Destroy(colisao.gameObject);
+        }
     }
     //colisão de mentirinha// passa direto
     private void OnTriggerEnter2D(Collider2D gatilho)
     {
         if(gatilho.gameObject.tag == "Chao")
         {
-            
             noChao = true;
             qtdPulos = 2;
+        }
+
+        if (gatilho.gameObject.tag == "Estrela")
+        {
+            estrelas++;
+            Destroy(gatilho.gameObject);
         }
     }
 
