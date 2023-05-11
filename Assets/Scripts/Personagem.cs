@@ -8,6 +8,10 @@ public class Personagem : MonoBehaviour
     private Rigidbody2D Corpo;
     private Animator Animacao;
 
+    //Variaveis
+    public bool noChao = false;
+    public int qtdPulos = 1;
+
     // Tudo que roda uma vez só no inicio
     void Start()
     {
@@ -20,6 +24,7 @@ public class Personagem : MonoBehaviour
     void Update()
     {
         Mover();
+        Pular();
     }
 
     void Mover()
@@ -27,7 +32,7 @@ public class Personagem : MonoBehaviour
         //Variavel de Velocidade
         float velocidadeX;
         velocidadeX = Input.GetAxis("Horizontal") * 3;
-        Corpo.velocity = new Vector2(velocidadeX, 0);
+        Corpo.velocity = new Vector2(velocidadeX, Corpo.velocity.y);
         //Animacao
         if(Mathf.Abs(velocidadeX) > 0)
         {
@@ -46,4 +51,44 @@ public class Personagem : MonoBehaviour
             Animacao.SetBool("Andar", false);
         }
     }
+
+
+    void Pular()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            /*
+             //pulo unico
+            if(noChao == true)
+            {
+                Corpo.AddForce(Vector2.up * 300);
+                noChao = false;
+            }*/
+            //Pulo mutiplo
+            if(qtdPulos > 0)
+            {
+                Corpo.AddForce(Vector2.up * 300);
+                qtdPulos--;
+            }
+            
+            
+        }
+    }
+    //Colisão real, tem fisica
+    private void OnCollisionEnter2D(Collision2D colisao)
+    {
+        
+    }
+    //colisão de mentirinha// passa direto
+    private void OnTriggerEnter2D(Collider2D gatilho)
+    {
+        if(gatilho.gameObject.tag == "Chao")
+        {
+            
+            noChao = true;
+            qtdPulos = 2;
+        }
+    }
+
+
 }
