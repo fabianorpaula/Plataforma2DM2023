@@ -10,26 +10,46 @@ public class Esqueleto : MonoBehaviour
     public float posInicial;
     public float posFinal;
     public bool frente = true;
-
+    private GameObject Jogador;
+    public bool vendoJogador = false;
 
     void Start()
     {
         Animacao = GetComponent<Animator>();
+        Jogador = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
-        Mover();
+        
+        Intel();
+    }
+
+    void Intel()
+    {
+        if(Vector2.Distance(transform.position, Jogador.transform.position) <= 2f)
+        {
+            vendoJogador = true;
+            Animacao.SetBool("Andar", false);
+        }
+
+        if (Vector2.Distance(transform.position, Jogador.transform.position) > 2f)
+        {
+            vendoJogador = false;
+            Mover();
+        }
     }
 
     void Mover()
     {
+        Animacao.SetBool("Andar", true);
         if (frente == true)
         {
             //para Onde eu quero IR
             Vector2 destino = new Vector2(posFinal, transform.position.y);
             //Me deslocando
             transform.position = Vector2.MoveTowards(transform.position, destino, 0.01f);
+            transform.localScale = new Vector3(1, 1, 1);
             if(Vector2.Distance(transform.position, destino) < 0.2f)
             {
                 frente = false;
@@ -41,6 +61,7 @@ public class Esqueleto : MonoBehaviour
             Vector2 destino = new Vector2(posInicial, transform.position.y);
             //Me deslocando
             transform.position = Vector2.MoveTowards(transform.position, destino, 0.01f);
+            transform.localScale = new Vector3(-1, 1, 1);
             if (Vector2.Distance(transform.position, destino) < 0.2f)
             {
                 frente = true;
