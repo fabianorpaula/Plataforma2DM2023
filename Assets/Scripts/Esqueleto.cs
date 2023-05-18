@@ -12,6 +12,7 @@ public class Esqueleto : MonoBehaviour
     public bool frente = true;
     private GameObject Jogador;
     public bool vendoJogador = false;
+    public GameObject MeuAtk;
 
     void Start()
     {
@@ -27,13 +28,16 @@ public class Esqueleto : MonoBehaviour
 
     void Intel()
     {
-        if(Vector2.Distance(transform.position, Jogador.transform.position) <= 2f)
+        if (Vector2.Distance(transform.position, Jogador.transform.position) <= 1.9f)
+        {
+            Debug.Log("CHAMOU ATAQUE");
+            Animacao.SetTrigger("Atacar");
+            
+        }else if (Vector2.Distance(transform.position, Jogador.transform.position) <= 2f)
         {
             vendoJogador = true;
             Animacao.SetBool("Andar", false);
-        }
-
-        if (Vector2.Distance(transform.position, Jogador.transform.position) > 2f)
+        }else if (Vector2.Distance(transform.position, Jogador.transform.position) > 2f)
         {
             vendoJogador = false;
             Mover();
@@ -90,5 +94,16 @@ public class Esqueleto : MonoBehaviour
     public void AcabouImunidade()
     {
         podeTomarDano = true;
+    }
+
+
+    public void AtivaAtk()
+    {
+        MeuAtk.SetActive(true);
+    }
+
+    public void DesativaAtk()
+    {
+        MeuAtk.SetActive(false);
     }
 }
