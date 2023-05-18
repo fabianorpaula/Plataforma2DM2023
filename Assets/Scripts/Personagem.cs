@@ -7,6 +7,7 @@ public class Personagem : MonoBehaviour
     //Declarar Componentes
     private Rigidbody2D Corpo;
     private Animator Animacao;
+    public GameObject MeuAtk;
 
     //Variaveis
     public bool noChao = false;
@@ -26,6 +27,19 @@ public class Personagem : MonoBehaviour
     {
         Mover();
         Pular();
+        Ataque();
+    }
+
+    void Ataque()
+    {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Animacao.SetTrigger("Ataque");
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Animacao.SetTrigger("Ataque");
+        }
     }
 
     void Mover()
@@ -100,5 +114,15 @@ public class Personagem : MonoBehaviour
         }
     }
 
+
+    public void AtivaAtk()
+    {
+        MeuAtk.SetActive(true);
+    }
+
+    public void DesativaAtk()
+    {
+        MeuAtk.SetActive(false);
+    }
 
 }
