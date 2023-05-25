@@ -13,7 +13,9 @@ public class Personagem : MonoBehaviour
     public bool noChao = false;
     public int qtdPulos = 2;
     public int estrelas = 0;
+    //Sangue
     public float barraSangue = 100;
+    public RectTransform imgbarraSangue;
 
     // Tudo que roda uma vez só no inicio
     void Start()
@@ -117,6 +119,21 @@ public class Personagem : MonoBehaviour
         {
             TomouDano();
         }
+        if(gatilho.gameObject.tag == "PoteVida")
+        {
+            RecuperaVida();
+            Destroy(gatilho.gameObject);
+        }
+    }
+
+    void RecuperaVida()
+    {
+        barraSangue = barraSangue + 30;
+        if(barraSangue >= 100)
+        {
+            barraSangue = 100;
+        }
+        imgbarraSangue.sizeDelta = new Vector2(barraSangue * 3, 50);
     }
 
     void TomouDano()
@@ -127,6 +144,7 @@ public class Personagem : MonoBehaviour
         {
             Animacao.SetBool("Morto", true);
         }
+        imgbarraSangue.sizeDelta = new Vector2(barraSangue * 3, 50);
     }
 
     public void Morreu()
