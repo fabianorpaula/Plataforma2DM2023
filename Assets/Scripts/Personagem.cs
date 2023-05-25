@@ -13,6 +13,7 @@ public class Personagem : MonoBehaviour
     public bool noChao = false;
     public int qtdPulos = 2;
     public int estrelas = 0;
+    public float barraSangue = 100;
 
     // Tudo que roda uma vez só no inicio
     void Start()
@@ -112,8 +113,26 @@ public class Personagem : MonoBehaviour
             estrelas++;
             Destroy(gatilho.gameObject);
         }
+        if (gatilho.gameObject.tag == "AtaqueInimigo")
+        {
+            TomouDano();
+        }
     }
 
+    void TomouDano()
+    {
+        barraSangue = barraSangue - 10;
+        Animacao.SetTrigger("Dano");
+        if(barraSangue <= 0)
+        {
+            Animacao.SetBool("Morto", true);
+        }
+    }
+
+    public void Morreu()
+    {
+        Animacao.SetBool("Vivo", false);
+    }
 
     public void AtivaAtk()
     {

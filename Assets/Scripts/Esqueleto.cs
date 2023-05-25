@@ -13,6 +13,7 @@ public class Esqueleto : MonoBehaviour
     private GameObject Jogador;
     public bool vendoJogador = false;
     public GameObject MeuAtk;
+    public bool vivo = true;
 
     void Start()
     {
@@ -22,8 +23,11 @@ public class Esqueleto : MonoBehaviour
 
     private void Update()
     {
+        if(vivo == true)
+        {
+            Intel();
+        }
         
-        Intel();
     }
 
     void Intel()
@@ -85,6 +89,7 @@ public class Esqueleto : MonoBehaviour
                 if (hp <= 0)
                 {
                     Animacao.SetBool("Morto", true);
+                    Morto();
                 }
             }
             
@@ -106,4 +111,13 @@ public class Esqueleto : MonoBehaviour
     {
         MeuAtk.SetActive(false);
     }
+
+
+    void Morto()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        vivo = false;
+        Destroy(this.gameObject, 15f);
+    }
+
 }
