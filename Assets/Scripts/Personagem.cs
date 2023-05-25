@@ -17,20 +17,28 @@ public class Personagem : MonoBehaviour
     public float barraSangue = 100;
     public RectTransform imgbarraSangue;
 
+    //Controlador
+    private Controlador Control;
+
     // Tudo que roda uma vez só no inicio
     void Start()
     {
         Animacao = GetComponent<Animator>();
         Corpo = GetComponent<Rigidbody2D>();
+        Control = GameObject.FindGameObjectWithTag("GameController").GetComponent<Controlador>();
         
     }
 
     // Roda toda e todo tempo (FRAME)
     void Update()
     {
-        Mover();
-        Pular();
-        Ataque();
+        if(Control.EstadoJogo() == true)
+        {
+            Mover();
+            Pular();
+            Ataque();
+        }
+        
     }
 
     void Ataque()
