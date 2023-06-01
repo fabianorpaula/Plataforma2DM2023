@@ -9,6 +9,7 @@ TagManager:
   - Ataque
   - AtaqueInimigo
   - PoteVida
+  - Inimigo
   layers:
   - Default
   - TransparentFX
