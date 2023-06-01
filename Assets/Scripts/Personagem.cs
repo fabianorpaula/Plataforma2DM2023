@@ -18,6 +18,7 @@ public class Personagem : MonoBehaviour
     public RectTransform imgbarraSangue;
     public float barraCoracao = 4;
     public RectTransform imgbarraCoracao;
+    public GameObject MinhaMagica;
 
     //Controlador
     private Controlador Control;
@@ -39,8 +40,25 @@ public class Personagem : MonoBehaviour
             Mover();
             Pular();
             Ataque();
+            Magia();
         }
         
+    }
+
+    void Magia()
+    {
+        if(Input.GetKeyDown(KeyCode.M)){
+            Animacao.SetTrigger("Magia");
+        }
+    }
+
+
+    public void LiberarMagia()
+    {
+        Vector3 posSaida = transform.position + new Vector3(0, 2, 0);
+        GameObject MagiaLiberada = Instantiate(MinhaMagica, posSaida, Quaternion.identity);
+        MagiaLiberada.GetComponent<MinhaMagia>().lado = transform.localScale.x;
+        Destroy(MagiaLiberada, 2f);
     }
 
     void Ataque()
