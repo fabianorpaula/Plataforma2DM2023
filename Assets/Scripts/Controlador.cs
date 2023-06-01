@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controlador : MonoBehaviour
 {
 
     public bool gameON = false;
+    public GameObject TelaMorte;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,17 @@ public class Controlador : MonoBehaviour
     public bool EstadoJogo()
     {
         return gameON;
+    }
+
+    public void AtivarMorte()
+    {
+        TelaMorte.SetActive(true);
+    }
+
+
+    public void ReiniciarJogo()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

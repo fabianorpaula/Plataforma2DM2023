@@ -16,6 +16,8 @@ public class Personagem : MonoBehaviour
     //Sangue
     public float barraSangue = 100;
     public RectTransform imgbarraSangue;
+    public float barraCoracao = 4;
+    public RectTransform imgbarraCoracao;
 
     //Controlador
     private Controlador Control;
@@ -146,18 +148,25 @@ public class Personagem : MonoBehaviour
 
     void TomouDano()
     {
-        barraSangue = barraSangue - 10;
+        barraSangue = barraSangue - 25;
+        barraCoracao = barraCoracao - 1;
         Animacao.SetTrigger("Dano");
         if(barraSangue <= 0)
         {
             Animacao.SetBool("Morto", true);
         }
         imgbarraSangue.sizeDelta = new Vector2(barraSangue * 3, 50);
+        imgbarraCoracao.sizeDelta = new Vector2(barraCoracao * 100, 100);
     }
 
     public void Morreu()
     {
         Animacao.SetBool("Vivo", false);
+    }
+
+    public void FinalizouMorte()
+    {
+        Control.AtivarMorte();
     }
 
     public void AtivaAtk()
